@@ -40,6 +40,17 @@ public class CuriousBunny extends Animal{
 		else{
 			throw new IllegalArgumentException("you set a wrong position");}
 	}
+	@Override
+	public void teleport(String str){
+		System.out.println(this.name+" friend's location is "+str);
+	}
+
+	@Override
+	public String getPosition(Coordinate coordinate){
+		return coordinate.toString();
+	}
+
+
 }
 
 
