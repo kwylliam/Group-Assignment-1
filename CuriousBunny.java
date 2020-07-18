@@ -21,35 +21,7 @@ public class CuriousBunny extends Animal{
 		}
 
 	}
-	private Coordinate coordinate;
-
-	public Coordinate getCoordinate(){
-		return coordinate;
-	}
-
-	public void setCoordinate(){
-		Coordinate coordinate = new Coordinate(0,0);
-		this.coordinate=coordinate;
-	}
-
-	public void setLocation(int x,int y){
-		if(!(x<0&&x>500&&y<0&&y>1000)){
-			this.coordinate.setX(x);
-			this.coordinate.setY(y);
-		}
-		else{
-			throw new IllegalArgumentException("you set a wrong position");}
-	}
 	
-	@Override
-	public void teleport(String str){
-		System.out.println(this.name+" friend's location is "+str);
-	}
-
-	@Override
-	public String getPosition(Coordinate coordinate){
-		return coordinate.toString();
-	}
 }
 
 
