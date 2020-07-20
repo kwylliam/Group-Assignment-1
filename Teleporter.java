@@ -2,5 +2,5 @@ public interface Teleporter{
 
 	public void teleport();
 
-	public String getPosition();
+	public String getPosition(Coordinate coordinate);
 }
