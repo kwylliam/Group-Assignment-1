@@ -1,10 +1,11 @@
 public class AngryDuck extends WaterFowl implements Teleporter{
-protected String position="(0,0)";
+protected String position;
  
  //constructor
 protected AngryDuck(String name, String color){
 
   super(name, color);
+  position="(0,0)";
  }
 
 
