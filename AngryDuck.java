@@ -1,5 +1,6 @@
-public class AngryDuck extends WaterFowl{
-
+public class AngryDuck extends WaterFowl implements Teleporter{
+protected String position="(0,0)";
+ 
  //constructor
 protected AngryDuck(String name, String color){
 
@@ -17,10 +18,26 @@ protected AngryDuck(String name, String color){
   else
    {System.out.println(name + " is dead");
  }
+
  }
- 
- //protected String toString()
- //{
-//return super.toString();
- //}
+
+public void teleport(){
+ 	
+ 	String x=String.valueOf((int)Math.random()*500);
+ 	String y=String.valueOf((int)Math.random()*1000);
+
+ 	System.out.print("You have teleported to, (" +x+", "+y+")" );
+
+ 	position="("+x+","+y+")";
+
  }
+
+ public String getPosition(){
+
+ 	return position;
+ }
+
+
+ }
+
+  
