@@ -1,95 +1,204 @@
-//***********************
-//William Mwangi
-//T00622533
-//Assignment 4 (Animal)
-//***************************
+import java.util.Scanner;
 
-public abstract class Animal{
+public abstract class Animal
+{
 
-	//Instance variables
-	//******************
+    protected static int health;
+    protected static int killCount;
 
-	int health;
-	public static int count;
+    public int getHealth() {
+        return health;
+    }
 
-	protected String color, name;
-
-
-	// Constructor
-	//************
-
-	protected Animal(String name, String color){
-		health=3;
-		count++;
-		this.color=color;
-		this.name=name;
-	}
-
-	//Accessors
-	//*********
-
-	protected int getHealth(){
-		return health;
-	}
-
-
-	protected String getName(){
-		return name;
-	}
-
-	protected int getCount(){
-		return count;
-	}
-
-	protected String getColor(){
-		return color; 
-	}
-
-	//Mutators
-	//********
-
-	//Did not includ a setHealth() method because I figured that 
-	//the user shouldn't be able to arbitrarily set the health of thier character
-	// I also did not include a setcount for the same reason.
-	//I alos figured that changeName and changeColor were more intuitive names to the user
-
-	protected void changeName(String name){
-		this.name=name;
-		System.out.println("Name has been set to "+ "name");
-	}
-
-	protected void changeColor(String color){
-		color=color; 
-		System.out.println("Color has been set to "+ color);
-	}
-
-	//Custom methods
-	//***************
-
-	protected void hit(){
-		if (health>0)
-		{
-			health--;
-			System.out.println("Take cover! you have been hit. Health is now :"+health);
-		}
-
-		else{
-			System.out.println(name+ " is dead!");
-			count--;
-
-		}
+    public void setHealth(int health) {
+        this.health=health;
+    }
 
 
 
-	}
+    public int getKillCount() {
+        return killCount;
 
-	public String toString(){
-		return("Character Info: " + "\n"+"***********************\n"+ this.getClass().getSimpleName()+"\n Name: "+name
-			+"\nHealth: "+ health + "\nColor: "+ color);
-	}
+    }
+
+    public boolean attack(Object object) {
+        int targetHealth=((Attacker) object).getHealth();
+        if(!(object instanceof AngryDuck) && health>0 && targetHealth > 0) //if not of same type then and alive then attack
+        {
+            if(targetHealth==1) {
+                this.killCount++;
+            }
+            ((Attacker) object).setHealth(targetHealth-1);
+            System.out.println("AngryDuck attacked "+object.getClass().getSimpleName()+", KillCount :"+this.killCount);
+            return true;
+        }
+        else {
+            System.out.println("AngryDuck cannot attack "+object.getClass().getSimpleName());
+            return false;
+        }
+
+    }
+
+    public interface Attacker {
+        int getKillCount();
+        int getHealth();
+        void setHealth(int health);
+        boolean attack(Object object);
+
+    }
+
+    /*
 
 
+    public Animal(String name, String primaryColor)
+    {
+        super();
+        count ++;
+        Animal.name = name;
+        this.primaryColor = primaryColor;
+
+    }
+
+    // set & get name
+    public String getName()
+    {
+        return name;
+    }
+
+    public void setName(String name)
+    {
+        Animal.name = name;
+    }
+
+    // set & get primaryColor
+    public String getPrimaryColor()
+    {
+
+        return primaryColor;
+    }
+
+    public void setPrimaryColor(String primaryColor)
+    {
+        this.primaryColor = primaryColor;
+    }
+
+    // s%g Health
+    public int getHealth()
+    {
+        return health;
+    }
+
+    public void setHealth(int health)
+    {
+        Animal.health = health;
+    }
 
 
+    // hit & isAlive status
+    public static void attack()
+    {
+        //User can choose which animal start fight
+        Scanner s = new Scanner(System.in);
 
+        System.out.println("Please enter the name of animal to test:");
+        System.out.println("CB for CuriousBunny");
+        System.out.println("HP for HappyPig");
+        System.out.println("LG for LoudGoose");
+        System.out.println("AD for AngryDuck");
+
+        String userInputContent = s.next();
+
+        switch (userInputContent) {
+            case "CB":
+
+                System.out.println("CuriousBunny is not a attacker!");
+                if (isAlive) {
+                    System.out.println("The animal started attacking!");
+                    health--;
+                    if (!isAlive()) {
+                        System.out.println("Animal is already fainted, can't hit it again!");
+                        return;
+                    }
+                }
+                if (health == 0) {
+                    isAlive = false;
+                    count--;
+                    System.out.println("*************************************************");
+                    System.out.println(name + " The enemy fainted and it scored points!");
+                    System.out.println("*************************************************");
+                }
+                break;
+            case "HP":
+                System.out.println("HappyPig Can not attack!");
+                if (isAlive) {
+                    System.out.println("The animal started attacking!");
+                    health--;
+                    if (!isAlive()) {
+                        System.out.println("Animal is already fainted, can't hit it again!");
+                        return;
+                    }
+                }
+                if (health == 0) {
+                    isAlive = false;
+                    count--;
+                    System.out.println("*************************************************");
+                    System.out.println(name + " The enemy fainted and it scored points!");
+                    System.out.println("*************************************************");
+                }
+                break;
+            case "LG":
+                System.out.println("LoudGoose Can attack!");
+                if (isAlive) {
+                    System.out.println("The animal started attacking!");
+                    health--;
+                    if (!isAlive()) {
+                        System.out.println("Animal is already fainted, can't hit it again!");
+                        return;
+                    }
+                }
+                if (health == 0) {
+                    isAlive = false;
+                    count--;
+                    System.out.println("*************************************************");
+                    System.out.println(name + " The enemy fainted and it scored points!");
+                    System.out.println("*************************************************");
+                }
+                break;
+            case "AD":
+                System.out.println("AngryDuck Can attack!");
+                if (isAlive) {
+                    System.out.println("The animal started attacking!");
+                    health--;
+                    if (!isAlive()) {
+                        System.out.println("Animal is already fainted, can't hit it again!");
+                        return;
+                    }
+                }
+                if (health == 0) {
+                    isAlive = false;
+                    count--;
+                    System.out.println("*************************************************");
+                    System.out.println(name + " The enemy fainted and it scored points!");
+                    System.out.println("*************************************************");
+                }
+                break;
+            default:
+                System.out.println("Please enter CB, HP, LG or AD.");
+                attack();
+        }
+    }
+
+    public String toString()
+    {
+        return "Name:" + name +
+                "\nColor:" + primaryColor +
+                "\nhealth:" + health;
+    }
+
+    public static boolean isAlive()
+    {
+        return isAlive;
+    }
+
+     */
 }
